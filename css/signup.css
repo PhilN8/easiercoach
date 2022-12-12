@@ -1,0 +1,161 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+.register {
+	width: min(50rem, 80%);
+	background-color: white;
+	padding: 1.5625rem 1.875rem;
+	border-radius: 0.3125rem;
+	border: 2px solid var(--nav-black);
+	margin: 2rem auto 3rem;
+}
+
+.register__form {
+	width: 100%;
+	color: var(--nav-black);
+}
+
+.register__title {
+	font-size: 1.5625rem;
+	font-weight: 500;
+	position: relative;
+}
+
+.register__title::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 3px;
+	width: 30px;
+	background: linear-gradient(135deg, var(--nav-red), var(--nav-white));
+}
+
+.register__user--container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 1.25rem 0 0.75rem;
+}
+
+.register__input--box {
+	margin-bottom: 0.9375rem;
+	width: calc(100% / 2 - 1.25rem);
+}
+
+.register__label {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 0.3125rem;
+	color: var(--nav-black);
+}
+
+.register__input {
+	height: 2.8125rem;
+	width: 100%;
+	outline: none;
+	border-radius: 0.3125rem;
+	border: 1px solid grey;
+	padding-left: 0.9375rem;
+	font-size: 1rem;
+	border-bottom-width: 2px;
+	transition: all 0.3s ease;
+}
+
+.register__input:focus {
+	border-color: var(--nav-black);
+}
+
+.register__input:invalid {
+	border-color: var(--nav-red);
+}
+
+.register__submit {
+	height: 2.8125rem;
+	margin: 1rem 0 0;
+}
+
+.register__submit--btn {
+	height: 100%;
+	width: 100%;
+	outline: none;
+	color: white;
+	border: none;
+	font-size: 1.125rem;
+	font-weight: 500;
+	letter-spacing: 0.0625rem;
+	background-color: var(--nav-red);
+	transition: all 0.3s ease;
+	border: 1px solid var(--nav-red);
+}
+
+.register__submit--btn:hover {
+	background-color: var(--nav-white);
+	color: var(--nav-red);
+}
+
+.register__link {
+	margin-top: 1rem;
+	cursor: pointer;
+}
+
+.register__link a {
+	font-size: 1.15rem;
+	font-weight: 700;
+	text-decoration: none;
+	color: grey;
+	transition: all 0.3s ease;
+}
+
+.register__link a:hover {
+	color: dodgerblue;
+	text-decoration: underline;
+}
+
+p.register__error {
+	background-color: #f2dede;
+	color: #a94442;
+	padding: 0.625rem;
+	width: 100%;
+	border-radius: 0.3125rem;
+	margin: 1.5rem auto 1.75rem;
+	position: relative;
+}
+
+.register__error span {
+	cursor: pointer;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin-right: 10px;
+	font-size: 30px;
+	transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 584px) {
+	.register__input--box {
+		width: 100%;
+	}
+
+	.register__user--container {
+		max-height: 300px;
+		overflow-y: scroll;
+	}
+
+	.register__user--container::-webkit-scrollbar {
+		width: 0;
+	}
+
+	.register__submit {
+		margin: 2rem 0 0;
+	}
+}
