@@ -48,4 +48,15 @@ class Ticket extends Model
             ->query($sql, [$purchase_id])
             ->all();
     }
+
+    public function getBookedSeats($route, $departure_date)
+    {
+        $seats_sql = "SELECT `seat_number` FROM {$this->table} WHERE `departure_date` = ?
+                AND `purchase_id` IN (SELECT `purchase_id` FROM " . Purchase::TABLE . " WHERE
+                `route_id` = ?)";
+
+        return $this->db
+            ->query($seats_sql, [$departure_date, $route])
+            ->all();
+    }
 }

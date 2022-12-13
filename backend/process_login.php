@@ -42,7 +42,8 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
             $_SESSION['role'] = $row['role'];
             $_SESSION['msg'] = "Login Successful";
 
-            returnJson(['message' => 1]);
+            header("location:/admin");
+            // returnJson(['message' => 1]);
         } else
             returnJson(['message' => 2]);
     } else

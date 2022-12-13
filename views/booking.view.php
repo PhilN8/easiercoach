@@ -215,5 +215,6 @@
 
 </div>
 
+<script src="../scripts/booking.js"></script>
 
 <?php include("partials/footer.php"); ?>

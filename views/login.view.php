@@ -37,4 +37,6 @@
 
     </div>
 </section>
+
+<script src="../scripts/login.js"></script>
 <?php include("partials/footer.php"); ?>

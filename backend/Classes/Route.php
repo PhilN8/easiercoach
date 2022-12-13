@@ -19,9 +19,9 @@ class Route extends Model
     /**
      * Adds a new route to the database. Check done to ensure it does not already exist in the database
      * 
-     * @param mixed $departure
-     * @param mixed $departure
-     * @param mixed $departure
+     * @param string $departure
+     * @param string $destination
+     * @param int $cost
      * 
      * @return mixed
      */
@@ -130,14 +130,6 @@ class Route extends Model
     }
 
     /**
-     * 
-     */
-    public static function cost($id)
-    {
-        return (new Route)->getCost($id);
-    }
-
-    /**
      * Returns the number of routes registered
      * 
      * @return int
@@ -149,5 +141,32 @@ class Route extends Model
         return $this->db
             ->query($query, [0])
             ->find()['total'] ?? 0;
+    }
+
+    /**
+     * Soft deletes a route
+     * 
+     * @param int $id
+     * 
+     * @return bool - Returns TRUE if successful, FALSE on failure
+     */
+    public function deleteRoute($id)
+    {
+        $query = "UPDATE {$this->table} SET is_deleted = 1 WHERE route_id = ?";
+        $result = $this->db
+            ->upsert($query, [intval($id)]);
+
+        return $result > 0;
+    }
+
+    public function earningsPerRoute()
+    {
+        $query = "SELECT `b`.`route_id`, `b`.departure, `b`.destination, SUM(`a`.`total_cost`) 
+        AS `earnings` FROM " . Purchase::TABLE . " AS a INNER JOIN {$this->table} AS b 
+        ON `a`.`route_id` = `b`.`route_id` GROUP BY `b`.`route_id` ORDER BY `earnings` DESC";
+
+        return $this->db
+            ->query($query)
+            ->all();
     }
 }

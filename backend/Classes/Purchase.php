@@ -41,7 +41,7 @@ class Purchase extends Model
     {
         $sql = "SELECT `a`.`first_name`, `a`.`last_name`, `a`.`departure_date`, `a`.`tel_no`,
         `a`.`id_number`, `a`.`total_cost`, `b`.`departure`, `b`.`destination` FROM {$this->table} AS a 
-        INNER JOIN `tbl_routes` AS `b` ON `b`.`route_id` = (SELECT `route_id` FROM 
+        INNER JOIN " . Route::TABLE . " AS `b` ON `b`.`route_id` = (SELECT `route_id` FROM 
         {$this->table} WHERE `purchase_id` = ?) AND `a`.`purchase_id` = ?";
 
         return $this->db
