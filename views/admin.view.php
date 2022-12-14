@@ -121,7 +121,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($earnings as $earning) { ?>
+                            <?php foreach ($route_earnings as $earning) { ?>
                                 <tr>
                                     <td><?= $earning['route_id'] ?></td>
                                     <td><?= $earning['departure'] . " - " . $earning['destination'] ?></td>
@@ -230,7 +230,7 @@
 
             <section class="history admin-section animate-opacity" id="history">
                 <h2 class="routes__form--title">History of Purchases</h2>
-                <?php if (isset($tickets)) { ?>
+                <?php if (isset($purchases)) { ?>
                     <div class="history__div--table">
                         <table class="history__table">
                             <thead>
@@ -244,21 +244,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($tickets as $ticket) { ?>
+                                <?php foreach ($purchases as $purchase) { ?>
                                     <tr>
-                                        <td><?= $ticket['purchase_id'] ?></td>
-                                        <td><?= $ticket['first_name'] . " " . $ticket['last_name'] ?></td>
-                                        <td><?= $ticket['departure'] . " - " . $ticket['destination'] ?></td>
-                                        <td><?= $ticket['departure_date'] ?></td>
-                                        <td><?= $ticket['total_cost'] ?></td>
-                                        <td><?= $ticket['seats'] ?></td>
+                                        <td><?= $purchase['purchase_id'] ?></td>
+                                        <td><?= $purchase['first_name'] . " " . $purchase['last_name'] ?></td>
+                                        <td><?= $purchase['departure'] . " - " . $purchase['destination'] ?></td>
+                                        <td><?= $purchase['departure_date'] ?></td>
+                                        <td><?= $purchase['total_cost'] ?></td>
+                                        <td><?= $purchase['seats'] ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
                     </div>
                 <?php } else { ?>
-                    <p class="history__text">No Records of Purchased Tickets</p>
+                    <p class="history__text">No Records of Purchases</p>
                 <?php } ?>
             </section>
 
