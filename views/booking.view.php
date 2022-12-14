@@ -1,14 +1,13 @@
 <?php include("partials/nav.php"); ?>
 
 <head>
-    <link rel="stylesheet" href="../css/book_online.css">
+    <link rel="stylesheet" href="../css/booking.css">
 </head>
 
 <main class="main">
     <div class="container">
 
         <section class="book">
-            <!-- <form action="backend/book_ticket.php" method="post" class="book__form"> -->
             <p class="book__form--title">Passenger Details</p>
             <div class="book__form--container">
                 <div class="book__form--box">
@@ -192,7 +191,6 @@
         </div>
         <div class="modal__body">
             <p class="modal__body--text">Explanations of the Coloring of Seats:</p>
-            <!-- <p>Some other text...</p> -->
 
             <div class="modal__body--col">
                 <p class="notAvailable">1</p>
@@ -215,6 +213,5 @@
 
 </div>
 
-<script src="../scripts/booking.js"></script>
-
 <?php include("partials/footer.php"); ?>
+<script src="../scripts/booking.js"></script>

@@ -4,9 +4,8 @@ spl_autoload_register('AutoLoader');
 
 function AutoLoader($className)
 {
-    $fullPath = __DIR__ . "\\backend\\" .  $className . ".php";
+    $fullPath = __DIR__ . "\\models\\" .  $className . ".php";
 
-    // echo $fullPath . "<br>";
     if (file_exists($fullPath))
         require $fullPath;
 }

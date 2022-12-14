@@ -1,5 +1,7 @@
 <?php
 session_start();
+$title = "Login | EasyCoach Ke";
+
 !isset($_SESSION['user_id']) ? require "views/login.view.php" : header("location:/admin");
 
 use Classes\User;

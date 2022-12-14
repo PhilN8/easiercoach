@@ -1,5 +1,7 @@
 <?php
 
+use Config\Response;
+
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 $routes = [
@@ -14,10 +16,16 @@ $routes = [
     '/services' => 'controllers/services.php',
 ];
 
-function abort($status = 404)
+function abort($status = Response::NOT_FOUND)
 {
     http_response_code($status);
-    require "views/404.php";
+
+    $fullPath = "views/{$status}.php";
+    if (file_exists($fullPath))
+        require $fullPath;
+    else
+        require "views/404.php";
+
     die();
 }
 

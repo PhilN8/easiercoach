@@ -82,6 +82,5 @@
     </section>
 </main>
 
-<script src="../scripts/index.js"></script>
-
 <?php include("partials/footer.php"); ?>
+<script src="../scripts/index.js"></script>
