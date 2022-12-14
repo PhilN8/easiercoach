@@ -19,6 +19,6 @@ abstract class Model
 
     protected function clean(string $data)
     {
-        return trim(stripslashes(htmlspecialchars($data)));
+        return htmlspecialchars(stripslashes(trim($data)));
     }
 }

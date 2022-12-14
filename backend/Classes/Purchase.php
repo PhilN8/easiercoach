@@ -15,7 +15,12 @@ class Purchase extends Model
         parent::__construct(self::TABLE);
     }
 
-    public function getSumOfPurchases()
+    /**
+     * Returns the total earnings from all purchases
+     * 
+     * @return int
+     */
+    public function getTotalEarnings()
     {
         $sql = "SELECT SUM(`total_cost`) as `total` FROM {$this->table}";
 

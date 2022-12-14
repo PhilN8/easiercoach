@@ -31,13 +31,14 @@ $("#loginForm").submit((evt) => {
   }
 
   $.ajax({
-    url: "backend/process_login.php",
+    url: "controllers/login.php",
     method: "POST",
     data: {
-      uname: username,
+      username: username,
       password: password,
     },
     success: (result) => {
+      console.log(result);
       if (result.message == 1) window.location.href = "admin.php";
 
       if (result.message == 2)

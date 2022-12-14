@@ -30,4 +30,46 @@ class User extends Model
     {
         return (new User)->getAllUsers();
     }
+
+    public function authenticate($username, $password)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE `user_name`= ?";
+
+        $authCheck =  $this->db
+            ->query($sql, [
+                $this->clean($username),
+                // $this->clean($password)
+            ])
+            ->find();
+
+        if (!$authCheck) {
+            return FALSE;
+        } else {
+            if (password_verify($password, $authCheck['password'])) {
+                unset($authCheck['password']);
+                return $authCheck;
+            }
+
+            return FALSE;
+        }
+    }
+
+    /**
+     * Returns the number of admins
+     * 
+     * @return int
+     */
+    public function getAdminCount()
+    {
+        $total_admins_sql = "SELECT COUNT(*) as `total` FROM {$this->table} WHERE `is_deleted` = ?";
+
+        return $this->db
+            ->query($total_admins_sql, [0])
+            ->find()['total'] ?? 0;
+    }
 }
+
+// $user = new User();
+
+// echo password_hash('hello', PASSWORD_DEFAULT);
+// dd($user->authenticate('p_nyaga', 'hello'));

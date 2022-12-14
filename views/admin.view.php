@@ -193,7 +193,7 @@
 
                     <datalist id="all-users">
 
-                        <?php foreach ($user_records as $row) { ?>
+                        <?php foreach ($users as $row) { ?>
                             <option value="<?= $row['user_id'] ?>"><?= $row['user_id'] . ' - ' . $row['first_name'] . ' ' .  $row['last_name']   ?></option>
                         <?php } ?>
 
