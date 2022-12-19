@@ -2,15 +2,12 @@
 
 namespace Classes;
 
+// include "../../autoload.php";
+
 use Classes\Model;
 
 class Ticket extends Model
 {
-    private Route $route;
-    private string $first_name;
-    private string $last_name;
-    private int $tel_no;
-    private string $departure_date;
 
     public const TABLE = 'tbl_ticket';
 
@@ -49,14 +46,47 @@ class Ticket extends Model
             ->all();
     }
 
-    public function getBookedSeats($route, $departure_date)
+    /**
+     * Returns the booked seats for a particular route for the specified date
+     * 
+     * @param int $route_id
+     * @param string $departure_date
+     * 
+     * @return array $booked_seats
+     */
+    public function getBookedSeats($route_id, $departure_date)
     {
         $seats_sql = "SELECT `seat_number` FROM {$this->table} WHERE `departure_date` = ?
                 AND `purchase_id` IN (SELECT `purchase_id` FROM " . Purchase::TABLE . " WHERE
                 `route_id` = ?)";
 
         return $this->db
-            ->query($seats_sql, [$departure_date, $route])
+            ->query($seats_sql, [$departure_date, $route_id])
             ->all();
     }
+
+    /**
+     * Saves all booked tickets for a particular purchase
+     * 
+     * @param Purchase $purchase
+     * @param array $seats
+     * 
+     */
+    public function bookSeats($purchase, $seats)
+    {
+        $id = $purchase->purchase_id;
+        $date = $purchase->departure_date;
+
+        foreach ($seats as $seat) {
+            $sql = "INSERT INTO {$this->table}(`purchase_id`, `seat_number`, `departure_date`)
+                    VALUES(?, ?, ?)";
+
+            $this->db->query($sql, [$id, $this->clean($seat), $date]);
+        }
+
+        return $id;
+    }
 }
+
+
+(new Ticket)->bookSeats(new Purchase([2, '5-6-2012']), range(1, 10));
