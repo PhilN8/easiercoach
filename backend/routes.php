@@ -44,4 +44,17 @@ if (isset($_POST['new_cost'])) {
         echo json_encode(['message' => 1]);
     else
         echo json_encode(['message' => 2]);
+
+    exit();
+}
+
+if (isset($_POST['deleteRoute'])) {
+    $route_id = $_POST['route'];
+
+    if ($route->deleteRoute($route_id))
+        echo json_encode(['message' => 1]);
+    else
+        echo json_encode(['message' => 2]);
+
+    exit();
 }

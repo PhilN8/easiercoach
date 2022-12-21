@@ -89,7 +89,7 @@
                                 999
                             </p>
                         </div>
-                        <a href="javascript:void(0)" onclick="openSection('users')">View More <i class="fas fa-arrow-right"></i></a>
+                        <a href="javascript:void(0)" onclick="openSection('routes')">View More <i class="fas fa-arrow-right"></i></a>
                     </div>
 
                     <div id="Seat" class="info-box status-item">
@@ -277,11 +277,14 @@
                             </thead>
                             <tbody id="routeTable">
                                 <?php foreach ($routes as $route) { ?>
-                                    <tr>
+                                    <tr id="route-<?= $route['route_id'] ?>">
                                         <td><?= $route['departure'] ?></td>
                                         <td><?= $route['destination'] ?></td>
                                         <td><?= $route['cost'] ?></td>
-                                        <td><button class="routes__edit--btn" onclick="openModal(<?= $route['route_id'] ?>)">Edit</button></td>
+                                        <td>
+                                            <button class="routes__edit--btn" onclick="openModal(<?= $route['route_id'] ?>)">Edit</button>
+                                            <button class="routes__delete--btn" onclick="openDeleteModal(<?= $route['route_id'] ?>)">Delete</button>
+                                        </td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -324,7 +327,7 @@
                     </thead>
                     <tbody class="w3-animate-opacity" id="userTable">
                         <?php
-                        foreach ($user_records as $user) {
+                        foreach ($users as $user) {
                         ?>
                             <tr>
                                 <td><?= $user['user_id'] ?></td>
@@ -355,8 +358,22 @@
                 </div>
             </div>
 
-            <button class="routes__btn" id="submitBtn">Submit</button>
-            <button class="routes__btn float-right" id="cancelBtn">Cancel</button>
+            <button class="routes__btn modal__btn" id="submitBtn">Submit</button>
+            <button class="routes__btn modal__btn float-right" id="cancelBtn">Cancel</button>
+        </div>
+
+    </div>
+
+    <div class="modal" id="deleteModal">
+
+        <div class="modal__content">
+            <div class="modal__header">
+                <p>Confirm Deletion</p>
+                <span class="modal__header--close">&times;</span>
+            </div>
+
+            <button class="routes__btn modal__btn" id="deleteBtn">Delete</button>
+            <button class="routes__btn modal__btn float-right" id="cancelDeleteBtn">Cancel</button>
         </div>
 
     </div>

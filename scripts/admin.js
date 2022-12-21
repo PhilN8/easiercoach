@@ -66,7 +66,7 @@ const allRoutes = () => {
 
       resp.forEach((el) => {
         $("#routeTable").append(
-          `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button></td></tr>`
+          `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button><button class="routes__delete--btn" onclick="openDeleteModal(${el.route_id})">Delete</button></td></tr>`
         );
       });
     },
@@ -125,9 +125,6 @@ const addRoute = () => {
       add_route: true,
     },
     success: (result) => {
-      // console.log(typeof result, result.length, result);
-      // var resp = JSON.parse(result);
-
       if (result.message == 1) toastr.warning("Route Already Exists");
 
       if (result.message == 2) {
@@ -135,13 +132,6 @@ const addRoute = () => {
         $("#departure").val("");
         $("#destination").val("");
         $("#cost").val("");
-
-        // $("#routeTable").empty();
-        // result["routes"].forEach((el) => {
-        //   $("#routeTable").append(
-        //     `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button></td></tr>`
-        //   );
-        // });
 
         var el = result["newRoute"];
         $("#routeTable").append(
@@ -165,15 +155,28 @@ const openModal = (editID) => {
   routeID = editID;
 };
 
-const closeModal = () => (modal.style.display = "none");
+var deleteModal = document.getElementById("deleteModal");
+
+const openDeleteModal = (deleteID) => {
+  deleteModal.style.display = "block";
+  routeID = deleteID;
+};
+
+const closeModal = () => {
+  modal.style.display = "none";
+  deleteModal.style.display = "none";
+};
 
 const ModalMenu = () => {
-  var closeBtn = document.querySelector(".modal__header--close");
+  var closeBtn = document.querySelectorAll(".modal__header--close");
+  closeBtn.forEach((btn) => {
+    btn.addEventListener("click", closeModal);
+  });
 
-  closeBtn.addEventListener("click", closeModal);
   window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target == modal || event.target == deleteModal) {
       modal.style.display = "none";
+      deleteModal.style.display = "none";
     }
   };
 };
@@ -199,8 +202,6 @@ const editCost = () => {
       route: routeID,
     },
     success: (result) => {
-      console.log(typeof result, result.length, result);
-
       var resp = JSON.parse(result);
 
       if (resp.message == 1) {
@@ -216,6 +217,32 @@ const editCost = () => {
 
 $("#submitBtn").on("click", editCost);
 document.querySelector("#cancelBtn").addEventListener("click", closeModal);
+
+const deleteRoute = () => {
+  $.ajax({
+    url: "backend/routes.php",
+    method: "POST",
+    data: {
+      deleteRoute: true,
+      route: routeID,
+    },
+    success: (result) => {
+      var resp = JSON.parse(result);
+
+      if (resp.message == 1) {
+        document.getElementById(`route-${routeID}`).remove();
+        deleteModal.style.display = "none";
+        toastr.success(`Route ${routeID} Deleted`);
+      } else toastr.error("Try again later", "Error");
+    },
+    error: () => toastr.error("Something went wrong", "Failed"),
+  });
+};
+
+$("#deleteBtn").on("click", deleteRoute);
+document
+  .querySelector("#cancelDeleteBtn")
+  .addEventListener("click", closeModal);
 
 // EDIT USERS
 

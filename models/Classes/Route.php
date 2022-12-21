@@ -2,8 +2,6 @@
 
 namespace Classes;
 
-// include_once "../../autoload.php";
-
 use Classes\Model;
 
 class Route extends Model
@@ -23,7 +21,7 @@ class Route extends Model
      * @param string $destination
      * @param int $cost
      * 
-     * @return mixed
+     * @return bool|int
      */
     public function newRoute($departure, $destination, $cost)
     {
@@ -63,6 +61,14 @@ class Route extends Model
         return (new Route)->getAllRoutes();
     }
 
+    /**
+     * Updates the cost of a ticket for the specified route
+     * 
+     * @param $id
+     * @param $newPrice
+     * 
+     * @return bool
+     */
     public function updateCost($id, $newPrice)
     {
         $query = "UPDATE {$this->table} SET cost = ? WHERE route_id = ?";
@@ -121,10 +127,12 @@ class Route extends Model
     public function search($departure, $destination)
     {
         $query = "SELECT * FROM `{$this->table}` WHERE `departure`=:departure AND `destination`=:destination";
-        $result = $this->db->query($query, [
-            "departure" => $this->clean($departure),
-            "destination" => $this->clean($destination)
-        ])->check();
+        $result = $this->db
+            ->query($query, [
+                "departure" => $this->clean($departure),
+                "destination" => $this->clean($destination)
+            ])
+            ->check();
 
         return $result;
     }
@@ -152,9 +160,9 @@ class Route extends Model
      */
     public function deleteRoute($id)
     {
-        $query = "UPDATE {$this->table} SET is_deleted = 1 WHERE route_id = ?";
+        $query = "UPDATE {$this->table} SET is_deleted = ? WHERE route_id = ?";
         $result = $this->db
-            ->upsert($query, [intval($id)]);
+            ->upsert($query, [1, intval($id)]);
 
         return $result > 0;
     }

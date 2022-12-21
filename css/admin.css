@@ -450,7 +450,8 @@ section.admin-section:not(.intro) {
 }
 
 .routes__edit--btn,
-.users__edit--btn {
+.users__edit--btn,
+.routes__delete--btn {
   border: none;
   outline: none;
   padding: 5px 10px;
@@ -459,6 +460,15 @@ section.admin-section:not(.intro) {
   cursor: pointer;
   transition: all 0.3s;
   border-radius: 4px;
+}
+
+.routes__delete--btn {
+  background-color: #b41b1b;
+  margin-left: 0.2rem;
+}
+
+.routes__delete--btn:hover {
+  background-color: #7a0d0d;
 }
 
 .routes__edit--btn:hover,
@@ -611,16 +621,16 @@ section.admin-section:not(.intro) {
   font-size: 1rem;
 }
 
-/* .modal__body > .routes__btn { */
-#submitBtn {
+#submitBtn,
+.routes__btn.modal__btn {
   margin: 0 0 0.5rem 1rem;
   background-color: #5cb85c;
   border-color: #5cb85c;
   color: #fff;
 }
 
-/* .modal__body > .routes__btn:hover { */
-#submitBtn:hover {
+#submitBtn:hover,
+.routes__btn.modal__btn:hover {
   background-color: #197019;
   border-color: #197019;
 }
@@ -629,12 +639,14 @@ section.admin-section:not(.intro) {
   font-weight: 700;
 }
 
-.routes__btn.float-right {
+.routes__btn.modal__btn.float-right {
   float: right;
   margin: 0 1rem 0.5rem 0;
+  background-color: #b41b1b;
+  border-color: #b41b1b;
 }
 
-.routes__btn.float-right:hover {
+.routes__btn.modal__btn.float-right:hover {
   background-color: #7a0d0d;
   border-color: #7a0d0d;
   color: white;
