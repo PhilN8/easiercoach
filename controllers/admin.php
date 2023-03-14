@@ -1,12 +1,11 @@
 <?php
-
 session_start();
 
 use Classes\User;
 use Classes\Route;
 use Classes\Ticket;
-use Classes\Purchase;
 use Config\Response;
+use Classes\Purchase;
 
 $users = User::all();
 $routes = Route::all();

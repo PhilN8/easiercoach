@@ -1,5 +1,9 @@
 <?php include("partials/nav.php"); ?>
 
+<head>
+    <link rel="stylesheet" href="../css/redirect.css">
+</head>
+
 <main class="main">
     <div class="container">
 
@@ -10,8 +14,8 @@
             </p>
 
             <div class="intro__links">
-                <a class="intro__links--btn" target="_blank" href="print.php?id=<?= $_GET['id'] ?? 0 ?>">Print</a>
-                <a class="intro__links--btn" href="index.html">Home</a>
+                <a class="intro__links--btn" target="_blank" href="/print?id=<?= $_GET['id'] ?? 0 ?>">Print</a>
+                <a class="intro__links--btn" href="/">Home</a>
             </div>
         </section>
 
@@ -59,4 +63,7 @@
     </div>
 </main>
 
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/toastr.js"></script>
+<script src="scripts/nav.js"></script>
 <script src="scripts/redirect.js"></script>

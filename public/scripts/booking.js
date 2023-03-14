@@ -78,7 +78,7 @@ const CheckBookedSeats = () => {
     .forEach((seat) => seat.classList.remove("notAvailable"));
 
   $.ajax({
-    url: "backend/seats.php",
+    url: "booking/seats",
     method: "POST",
     data: {
       route: route.value,
@@ -97,16 +97,14 @@ const CheckBookedSeats = () => {
 
 const CheckCost = () => {
   $.ajax({
-    url: "backend/routes.php",
+    url: "routes/show",
     method: "POST",
     data: {
       route_id: route.value,
     },
     success: (result) => {
-      console.log(result);
       let respond = JSON.parse(result);
       cost.value = respond.cost ?? 0;
-      // cost.value = result.cost ?? 0;
 
       if (chosenSeats.rows.length != 0) {
         $("#chosenSeats").empty();
@@ -145,8 +143,9 @@ function SetMinDate() {
 }
 
 $(document).ready(() => {
-  CheckCost();
   SetMinDate();
+  // alert("ready");
+  CheckCost();
   CheckBookedSeats();
 });
 
@@ -185,19 +184,17 @@ const bookTicket = () => {
 
     if (id_no == "") {
       $("#id-no").focus();
-      document.querySelector("#id-no").scrollIntoView();
     }
 
     if (tel_no == "") {
       $("#tel-no").focus();
-      document.querySelector("#tel-no").scrollIntoView();
     }
 
     if (fname == "") {
       $("#fname").focus();
-      document.querySelector("#fname").scrollIntoView();
     }
 
+    document.querySelector("#passenger-details").scrollIntoView();
     return;
   }
 
@@ -206,29 +203,35 @@ const bookTicket = () => {
     return;
   }
 
-  $.ajax({
-    method: "POST",
-    url: "backend/book_ticket.php",
-    data: {
-      fname: fname,
-      lname: lname,
-      id_no: id_no,
-      tel_no: tel_no,
-      cost: cost,
-      total_cost: totalCost,
-      route: route,
-      seats: seatsChosen ?? [],
-      dep_date: dep_date,
-      "book-ticket": true,
-    },
-    success: (result) => {
-      var resp = JSON.parse(result);
-      if (resp.message == 1) {
-        toastr.success("Transaction Successful");
-        window.location.href = "redirect.php?id=" + resp.id;
-      } else toastr.error("Try again later", "Error");
-    },
-  });
+  seats.value = [...seatsChosen];
+  document.forms[0].submit();
+
+  // $.ajax({
+  //   method: "POST",
+  //   url: "backend/book_ticket.php",
+  //   data: {
+  //     fname: fname,
+  //     lname: lname,
+  //     id_no: id_no,
+  //     tel_no: tel_no,
+  //     cost: cost,
+  //     total_cost: totalCost,
+  //     route: route,
+  //     seats: seatsChosen ?? [],
+  //     dep_date: dep_date,
+  //     "book-ticket": true,
+  //   },
+  //   success: (result) => {
+  //     var resp = JSON.parse(result);
+  //     if (resp.message == 1) {
+  //       toastr.success("Transaction Successful");
+  //       window.location.href = "/redirect?id=" + resp.id;
+  //     } else toastr.error("Try again later", "Error");
+  //   },
+  //   error: () => toastr.error("Try again later", "Error"),
+  // });
 };
+
+// document.getElementById("seats");
 
 $("#book-ticket").on("click", bookTicket);

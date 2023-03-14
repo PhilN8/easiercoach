@@ -1,4 +1,4 @@
-<?php include("partials/nav.php"); ?>
+<?php require base_path("views/partials/nav.php"); ?>
 
 <head>
     <link rel="stylesheet" href="../css/about-us.css">
@@ -46,4 +46,4 @@
     </div>
 </main>
 
-<?php include("partials/footer.php"); ?>
+<?php require base_path("views/partials/footer.php"); ?>

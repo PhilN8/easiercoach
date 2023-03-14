@@ -1,4 +1,4 @@
-<?php include("partials/nav.php"); ?>
+<?php require base_path("views/partials/nav.php"); ?>
 
 <head>
     <link rel="stylesheet" href="../css/index.css">
@@ -14,7 +14,7 @@
                     you hours of delay as you travel around the country? <br /><br />
                     Book a Ticket online and avoid all the hassle!
                 </p>
-                <a href="book_online.php" class="hero__btn">Book Now</a>
+                <a href="/booking" class="hero__btn">Book Now</a>
             </div>
             <div class="hero__col">
                 <img src="img/congestion.jpg" alt="picture of congested line" class="hero__img" />
@@ -82,5 +82,5 @@
     </section>
 </main>
 
-<?php include("partials/footer.php"); ?>
+<?php require base_path("views/partials/footer.php"); ?>
 <script src="../scripts/index.js"></script>

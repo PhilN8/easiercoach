@@ -31,17 +31,14 @@ $("#loginForm").submit((evt) => {
   }
 
   $.ajax({
-    url: "controllers/login.php",
+    url: "backend/process_login.php",
     method: "POST",
     data: {
       username: username,
       password: password,
     },
     success: (result) => {
-      console.log(result);
-      if (result.message == 1) window.location.href = "admin.php";
-
-      if (result.message == 2)
+      if (result.message == 1)
         toastr.error("Incorrect Username or Password", "Invalid Credentials");
     },
     error: () => toastr.error("Something went wrong"),

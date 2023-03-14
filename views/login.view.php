@@ -1,4 +1,4 @@
-<?php include("partials/nav.php"); ?>
+<?php require base_path("views/partials/nav.php"); ?>
 
 <head>
     <link rel="stylesheet" href="../css/login.css">
@@ -38,5 +38,5 @@
     </div>
 </section>
 
-<?php include("partials/footer.php"); ?>
+<?php require base_path("views/partials/footer.php"); ?>
 <script src="../scripts/login.js"></script>

@@ -78,9 +78,9 @@ class Purchase extends Model
             ->upsert($purchase_sql, [
                 ":fname" => $purchase_info['fname'],
                 ":lname" => $purchase_info['lname'],
-                ":id" => $purchase_info['id_no'],
-                ":tel" => $purchase_info['tel_no'],
-                ":dep" => $purchase_info['dep_date'],
+                ":id" => $purchase_info['id-no'],
+                ":tel" => $purchase_info['tel-no'],
+                ":dep" => $purchase_info['dep-date'],
                 ":route_id" => $purchase_info['route'],
                 ":seats" => count($purchase_info['seats']),
                 ":total" => $purchase_info['total_cost'],

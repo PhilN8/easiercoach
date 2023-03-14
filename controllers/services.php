@@ -1,5 +1,5 @@
 <?php
 
-$title = "Services | EasyCoach Ke";
-
-require "views/services.view.php";
+view('services.view.php', [
+    'title' => "Services | EasyCoach Ke"
+]);

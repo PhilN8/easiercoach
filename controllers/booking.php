@@ -16,6 +16,7 @@ if (isset($_POST['book-ticket'])) {
     exit();
 }
 
-$title = "Booking | EasyCoach Ke";
-$routes = Route::all();
-require "views/booking.view.php";
+view('booking.view.php', [
+    'title' => "Booking | EasyCoach Ke",
+    'routes' => Route::all()
+]);

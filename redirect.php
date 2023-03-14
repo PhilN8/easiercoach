@@ -53,7 +53,7 @@
 
                 <div class="intro__links">
                     <a class="intro__links--btn" target="_blank" href="print.php?id=<?= $_GET['id'] ?? 0 ?>">Print</a>
-                    <a class="intro__links--btn" href="index.html">Home</a>
+                    <a class="intro__links--btn" href="/">Home</a>
                 </div>
             </section>
 
