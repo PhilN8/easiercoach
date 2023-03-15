@@ -237,7 +237,7 @@ a.nav__link:hover {
 .footer__bottom--text {
   background-color: black;
   text-align: center;
-
+  color: white;
   padding: 1.5rem 0;
 }
 

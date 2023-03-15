@@ -165,6 +165,7 @@
 
             <button style="margin-bottom: 1rem;" class="book__btn" type="button" name="book-ticket" id="book-ticket">Proceed</button>
             <input hidden type="text" id="seats" name="seats[]">
+            <input hidden type="text" id="total_cost" name="total_cost">
         </form>
     </div>
 </main>

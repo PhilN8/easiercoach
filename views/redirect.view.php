@@ -1,4 +1,4 @@
-<?php include("partials/nav.php"); ?>
+<?php require base_path("views/partials/nav.php"); ?>
 
 <head>
     <link rel="stylesheet" href="../css/redirect.css">
@@ -62,6 +62,10 @@
 
     </div>
 </main>
+
+<footer>
+    <p class="footer__bottom--text">© Copyright - EasyCoach Ltd.</p>
+</footer>
 
 <script src="scripts/jquery.min.js"></script>
 <script src="scripts/toastr.js"></script>

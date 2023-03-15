@@ -89,4 +89,4 @@ class Ticket extends Model
 }
 
 
-(new Ticket)->bookSeats(new Purchase([2, '5-6-2012']), range(1, 10));
+// (new Ticket)->bookSeats(new Purchase([2, '5-6-2012']), range(1, 10));

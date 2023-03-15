@@ -87,7 +87,7 @@ class Purchase extends Model
                 ":role" => 3,
             ], true);
 
-        $this->departure_date = $purchase_info['dep_date'];
+        $this->departure_date = $purchase_info['dep-date'];
         $this->seats = $purchase_info['seats'];
 
         return $this;
