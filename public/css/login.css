@@ -59,10 +59,14 @@ body {
 }
 
 .login__form--box {
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
   width: 100%;
   height: 50px;
   position: relative;
+}
+
+.login__form--box + .login__form--box {
+  margin-top: 1.5rem;
 }
 
 .login__form--input {
@@ -95,4 +99,12 @@ body {
   top: -12px;
   background-color: white;
   font-size: 0.9rem;
+}
+
+.login__error {
+  margin-block: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #b41b1b;
+  /* background-color: #b41b1b; */
 }

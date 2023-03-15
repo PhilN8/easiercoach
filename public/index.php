@@ -1,6 +1,7 @@
 <?php
 
 const BASE_PATH = __DIR__ . "/../";
+const BASE_URL = "http://localhost:8000/";
 
 require BASE_PATH . "Config/functions.php";
 

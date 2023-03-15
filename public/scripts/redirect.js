@@ -2,7 +2,7 @@ const purchaseInfo = () => {
   var id = new URL(window.location.href).searchParams.get("id");
 
   $.ajax({
-    url: "backend/purchases.php",
+    url: "booking/show",
     data: {
       purchase_id: id,
     },

@@ -16,31 +16,17 @@ toastr.options = {
   hideMethod: "fadeOut",
 };
 
-$("#loginForm").submit((evt) => {
-  evt.preventDefault();
-
-  var username = $("#uname").val();
+$(".login__form--btn").click(() => {
+  var username = $("#username").val();
   var password = $("#password").val();
 
   if (username == "" || password == "") {
     toastr.warning("Fill in the required details", "Missing Info");
 
-    if (password == "") $("#password").focus();
     if (username == "") $("#uname").focus();
+    if (password == "") $("#password").focus();
     return;
   }
 
-  $.ajax({
-    url: "backend/process_login.php",
-    method: "POST",
-    data: {
-      username: username,
-      password: password,
-    },
-    success: (result) => {
-      if (result.message == 1)
-        toastr.error("Incorrect Username or Password", "Invalid Credentials");
-    },
-    error: () => toastr.error("Something went wrong"),
-  });
+  document.forms[0].submit();
 });

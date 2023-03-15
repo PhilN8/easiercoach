@@ -1,12 +1,12 @@
 <?php
-require 'fpdf/pdf.php';
+require base_path('fpdf/pdf.php');
 
 //The url you wish to send the POST request to
-$url = 'http://localhost/easiercoach/backend/purchases.php';
+$url = BASE_URL . 'booking/show';
 
 //The data you want to send via POST
 $fields = [
-    'ticket_info' => $_GET['id']
+    'purchase_id' => $_GET['id']
 ];
 
 //url-ify the data for the POST
@@ -28,6 +28,8 @@ $results = curl_exec($ch);
 $hello = json_decode($results);
 
 $seats_result = (array) $hello[1];
+// dd($results);
+
 
 // Handling of Results
 $number_of_seats = count($seats_result);
@@ -99,4 +101,4 @@ $pdf->Cell(100, 10, 'Produce this ticket at the bus station, either printed or e
 
 $pdf->Output('', 'Purchase Info ' . $_GET['id'] . ".pdf");
 
-require_once "views/print.view.php";
+view('print.view.php');

@@ -18,7 +18,7 @@ toastr.options = {
 
 const route = document.getElementById("route"),
   cost = document.getElementById("cost"),
-  totalcost = document.getElementById("total-cost"),
+  totalCost = document.getElementById("total_cost"),
   seats = document.getElementById("seats"),
   dep_date = document.getElementById("dep-date");
 
@@ -177,7 +177,6 @@ const bookTicket = () => {
   var cost = $("#cost").val().trim();
   var route = $("#route").val().trim();
   var dep_date = $("#dep-date").val();
-  var totalCost = $("#seatCost").text();
 
   if (fname == "" || tel_no == "" || id_no == "") {
     toastr.error("Fill in the required details", "Missing Info");
@@ -204,6 +203,7 @@ const bookTicket = () => {
   }
 
   seats.value = [...seatsChosen];
+  totalCost.value = $("#seatCost").text();
   document.forms[0].submit();
 
   // $.ajax({
