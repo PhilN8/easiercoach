@@ -46,7 +46,7 @@ body {
   border-radius: 5px;
   margin-left: 10px;
   outline: none;
-
+  margin-block-start: 1rem;
   border: 1px solid var(--nav-red);
   background-color: var(--nav-red);
   color: var(--nav-white);

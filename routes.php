@@ -17,10 +17,10 @@ $router->get('/redirect','controllers/redirect.php');
 $router->post('/booking/show', 'controllers/booking/show.php');
 
 // Login
-$router->get('/login', 'controllers/login/index.php');
+$router->get('/login', 'controllers/login/index.php')->only('guest');
 $router->post('/login', 'controllers/login/authorize.php');
 
 $router->get('/logout', 'controllers/logout.php');
 
 // Admin
-$router->get('/admin', 'controllers/admin.php');
+$router->get('/admin', 'controllers/admin.php')->only('auth');
