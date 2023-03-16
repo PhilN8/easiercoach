@@ -66,7 +66,7 @@ const allRoutes = () => {
 
       resp.forEach((el) => {
         $("#routeTable").append(
-          `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button><button class="routes__delete--btn" onclick="openDeleteModal(${el.route_id})">Delete</button></td></tr>`
+          `<tr id="route-${el.route_id}"><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button><button class="routes__delete--btn" onclick="openDeleteModal(${el.route_id})">Delete</button></td></tr>`
         );
       });
     },
@@ -106,17 +106,9 @@ const addRoute = () => {
     return;
   }
 
-  // departure.toLowerCase().replace(/\b[a-z]/g, function (letter) {
-  //   return letter.toUpperCase();
-  // });
-
-  // destination.toLowerCase().replace(/\b[a-z]/g, function (letter) {
-  //   return letter.toUpperCase();
-  // });
-
   $.ajax({
     method: "POST",
-    url: "backend/routes.php",
+    url: "routes/store",
     dataType: "JSON",
     data: {
       destination: destination,
@@ -135,7 +127,15 @@ const addRoute = () => {
 
         var el = result["newRoute"];
         $("#routeTable").append(
-          `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button></td></tr>`
+          `<tr id="route-${el.route_id}">
+            <td>${el.departure}</td>
+            <td>${el.destination}</td>
+            <td>${el.cost}</td>
+            <td>
+              <button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button>
+              <button class="routes__delete--btn" onclick="openDeleteModal(${el.route_id})">Delete</button>
+            </td>
+          </tr>`
         );
       }
 
@@ -147,15 +147,15 @@ const addRoute = () => {
 
 // MODAL MENU
 
-var modal = document.getElementById("myModal");
+var editModal = document.getElementById("editRouteModal");
 
 const openModal = (editID) => {
   $("#new-cost").val("");
-  modal.style.display = "block";
+  editModal.style.display = "block";
   routeID = editID;
 };
 
-var deleteModal = document.getElementById("deleteModal");
+var deleteModal = document.getElementById("deleteRouteModal");
 
 const openDeleteModal = (deleteID) => {
   deleteModal.style.display = "block";
@@ -163,7 +163,7 @@ const openDeleteModal = (deleteID) => {
 };
 
 const closeModal = () => {
-  modal.style.display = "none";
+  editModal.style.display = "none";
   deleteModal.style.display = "none";
 };
 
@@ -174,8 +174,8 @@ const ModalMenu = () => {
   });
 
   window.onclick = function (event) {
-    if (event.target == modal || event.target == deleteModal) {
-      modal.style.display = "none";
+    if (event.target == editModal || event.target == deleteModal) {
+      editModal.style.display = "none";
       deleteModal.style.display = "none";
     }
   };
@@ -195,19 +195,20 @@ const editCost = () => {
   }
 
   $.ajax({
-    url: "backend/routes.php",
+    url: "routes/update",
     method: "POST",
     data: {
       new_cost: newCost,
       route: routeID,
+      _method: "PATCH",
     },
     success: (result) => {
       var resp = JSON.parse(result);
 
       if (resp.message == 1) {
-        allRoutes();
+        document.getElementById(`cost-route-${routeID}`).innerHTML = newCost;
         $("#new-cost").val("");
-        modal.style.display = "none";
+        editModal.style.display = "none";
         toastr.success("Cost edited successfully");
       } else toastr.error("Try again later", "Error");
     },
@@ -220,11 +221,12 @@ document.querySelector("#cancelBtn").addEventListener("click", closeModal);
 
 const deleteRoute = () => {
   $.ajax({
-    url: "backend/routes.php",
+    url: "routes/destroy",
     method: "POST",
     data: {
       deleteRoute: true,
       route: routeID,
+      _method: "DELETE",
     },
     success: (result) => {
       var resp = JSON.parse(result);

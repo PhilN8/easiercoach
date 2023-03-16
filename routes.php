@@ -24,3 +24,6 @@ $router->get('/logout', 'controllers/logout.php');
 
 // Admin
 $router->get('/admin', 'controllers/admin.php')->only('auth');
+$router->post('/routes/store', 'controllers/routes/store.php')->only('auth');
+$router->patch('/routes/update', 'controllers/routes/update.php')->only('auth');
+$router->delete('/routes/destroy', 'controllers/routes/destroy.php')->only('auth');

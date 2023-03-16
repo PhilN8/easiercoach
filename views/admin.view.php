@@ -280,7 +280,9 @@
                                     <tr id="route-<?= $route['route_id'] ?>">
                                         <td><?= $route['departure'] ?></td>
                                         <td><?= $route['destination'] ?></td>
-                                        <td><?= $route['cost'] ?></td>
+                                        <td id="cost-route-<?= $route['route_id'] ?>">
+                                            <?= $route['cost'] ?>
+                                        </td>
                                         <td>
                                             <button class="routes__edit--btn" onclick="openModal(<?= $route['route_id'] ?>)">Edit</button>
                                             <button class="routes__delete--btn" onclick="openDeleteModal(<?= $route['route_id'] ?>)">Delete</button>
@@ -291,24 +293,26 @@
                         </table>
                     </div>
 
-                    <div class="routes__form">
-                        <h2 class="routes__form--title">Add Route</h2>
-                        <div class="routes__form--container">
-                            <div class="routes__form--box">
-                                <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
-                                <label for="departure" class="routes__form--label">Departure Point</label>
+                    <!-- <form action="/routes/store" method="POST" id="newRouteForm"> -->
+                        <div class="routes__form">
+                            <h2 class="routes__form--title">Add Route</h2>
+                            <div class="routes__form--container">
+                                <div class="routes__form--box">
+                                    <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
+                                    <label for="departure" class="routes__form--label">Departure Point</label>
+                                </div>
+                                <div class="routes__form--box">
+                                    <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
+                                    <label for="destination" class="routes__form--label">Destination</label>
+                                </div>
+                                <div class="routes__form--box">
+                                    <input type="text" name="cost" id="cost" placeholder=" " class="routes__form--input">
+                                    <label for="cost" class="routes__form--label">Cost</label>
+                                </div>
                             </div>
-                            <div class="routes__form--box">
-                                <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
-                                <label for="destination" class="routes__form--label">Destination</label>
-                            </div>
-                            <div class="routes__form--box">
-                                <input type="text" name="cost" id="cost" placeholder=" " class="routes__form--input">
-                                <label for="cost" class="routes__form--label">Cost</label>
-                            </div>
+                            <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>
                         </div>
-                        <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>
-                    </div>
+                    <!-- </form> -->
                 </div>
 
             </section>
@@ -343,7 +347,7 @@
         </main>
     </div>
 
-    <div class="modal" id="myModal">
+    <div class="modal" id="editRouteModal">
 
         <div class="modal__content">
             <div class="modal__header">
@@ -364,7 +368,7 @@
 
     </div>
 
-    <div class="modal" id="deleteModal">
+    <div class="modal" id="deleteRouteModal">
 
         <div class="modal__content">
             <div class="modal__header">
