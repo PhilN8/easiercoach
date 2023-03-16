@@ -38,20 +38,16 @@ class User extends Model
         $authCheck =  $this->db
             ->query($sql, [
                 $this->clean($username),
-                // $this->clean($password)
             ])
             ->find();
 
-        if (!$authCheck) {
-            return FALSE;
-        } else {
-            if (password_verify($password, $authCheck['password'])) {
-                unset($authCheck['password']);
-                return $authCheck;
-            }
 
-            return FALSE;
+        if (password_verify($password, $authCheck['password'] ?? "")) {
+            unset($authCheck['password']);
+            return $authCheck;
         }
+
+        return FALSE;
     }
 
     /**

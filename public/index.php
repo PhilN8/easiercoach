@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 const BASE_PATH = __DIR__ . "/../";
 const BASE_URL = "http://localhost:8000/";
 

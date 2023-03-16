@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 use Classes\User;
 use Classes\Route;
