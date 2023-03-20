@@ -1,46 +1,30 @@
 <?php
+
+use Classes\Ticket;
+use Config\Response;
+use Classes\Purchase;
+
 require base_path('fpdf/pdf.php');
 
-//The url you wish to send the POST request to
-$url = BASE_URL . 'booking/show';
-
-//The data you want to send via POST
-$fields = [
-    'purchase_id' => $_GET['id']
-];
-
-//url-ify the data for the POST
-$fields_string = http_build_query($fields);
-
-//open connection
-$ch = curl_init();
-
-//set the url, number of POST vars, POST data
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-
-//So that curl_exec returns the contents of the cURL; rather than echoing it
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-//execute post
-$results = curl_exec($ch);
-$hello = json_decode($results);
-
-$seats_result = (array) $hello[1];
-// dd($results);
-
-
-// Handling of Results
-$number_of_seats = count($seats_result);
-$seats = "";
-for ($i = 0; $i < $number_of_seats; $i++) {
-    if ($i == $number_of_seats - 1)
-        $seats .= $seats_result[$i]->seat_number;
-    else
-        $seats .= $seats_result[$i]->seat_number . ", ";
+if(!$_GET['id'] ?? false) {
+    abort(Response::FORBIDDEN);
 }
-$ticketInfo = $hello[0];
+
+$purchase = new Purchase();
+$ticket = new Ticket();
+
+$purchase_id = $_GET['id'];
+
+$seats_result = $ticket->getSeatNumbers($purchase_id);
+$ticketInfo = $purchase->getPurchaseInfo($purchase_id);
+
+$seats = "";
+for ($i = 0; $i < count($seats_result); $i++) {
+    if ($i == array_key_last($seats_result))
+        $seats .= $seats_result[$i]["seat_number"];
+    else
+        $seats .= $seats_result[$i]["seat_number"] . ", ";
+}
 
 $pdf = new PDF();
 $pdf->AddPage();
@@ -57,31 +41,31 @@ $pdf->Ln();
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(45, 10, 'Name:');
 $pdf->SetFont('Arial', '', 16);
-$pdf->Cell(40, 10, $ticketInfo->first_name . " " . $ticketInfo->last_name);
+$pdf->Cell(40, 10, $ticketInfo["first_name"] . " " . $ticketInfo["last_name"]);
 $pdf->Ln();
 
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(45, 10, 'Phone No:');
 $pdf->SetFont('Arial', '', 16);
-$pdf->Cell(40, 10, $ticketInfo->tel_no);
+$pdf->Cell(40, 10, $ticketInfo["tel_no"]);
 $pdf->Ln();
 
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(45, 10, 'ID No:');
 $pdf->SetFont('Arial', '', 16);
-$pdf->Cell(40, 10, $ticketInfo->id_number);
+$pdf->Cell(40, 10, $ticketInfo["id_number"]);
 $pdf->Ln();
 
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(45, 10, 'Route:');
 $pdf->SetFont('Arial', '', 16);
-$pdf->Cell(40, 10, $ticketInfo->departure . " - " . $ticketInfo->destination);
+$pdf->Cell(40, 10, $ticketInfo["departure"] . " - " . $ticketInfo["destination"]);
 $pdf->Ln();
 
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(45, 10, 'Departure Date:');
 $pdf->SetFont('Arial', '', 16);
-$pdf->Cell(40, 10, $ticketInfo->departure_date);
+$pdf->Cell(40, 10, $ticketInfo["departure_date"]);
 $pdf->Ln();
 
 $pdf->SetFont('Arial', 'B', 16);
@@ -93,7 +77,7 @@ $pdf->Ln();
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(45, 10, 'Total Cost:');
 $pdf->SetFont('Arial', '', 16);
-$pdf->Cell(40, 10, $ticketInfo->total_cost);
+$pdf->Cell(40, 10, $ticketInfo["total_cost"]);
 $pdf->Ln();
 $pdf->Ln();
 
