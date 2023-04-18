@@ -9,7 +9,7 @@ class Router
 {
     protected $routes = [];
 
-    protected function add($method, $uri, $controller)
+    public function add($method, $uri, $controller)
     {
         $this->routes[] = [
             'method' => $method,

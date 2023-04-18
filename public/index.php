@@ -1,8 +1,9 @@
 <?php
 session_start();
 
+session_start();
+
 const BASE_PATH = __DIR__ . "/../";
-const BASE_URL = "http://localhost:8000/";
 
 require BASE_PATH . "Config/functions.php";
 
@@ -11,6 +12,11 @@ spl_autoload_register(function ($class) {
 
     require base_path("{$class}.php");
 });
+
+$date1 = (new DateTime("07:15:00"));
+$date2 = (new DateTime());
+
+// dd($date1->diff($date2)->format("%I minutes %S seconds") > date("10:00:00"));
 
 $router = new \Config\Router();
 $routes = require base_path('routes.php');

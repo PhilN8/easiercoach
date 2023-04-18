@@ -13,7 +13,7 @@ abstract class Model
     protected function __construct(string $table)
     {
         $this->config = require('config.php');
-        $this->db = new Database($this->config['database']);
+        $this->db = new Database($this->config['database'], password: 'duffles');
         $this->table = $table;
     }
 

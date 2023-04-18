@@ -18,7 +18,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
 
     $_SESSION['user'] = $user;
-
+    $_SESSION['msg'] = "Login Successful";
     header('location:/admin');
     exit();
 }

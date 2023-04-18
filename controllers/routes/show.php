@@ -2,11 +2,8 @@
 
 use Classes\Route;
 
-$route = new Route();
+$route_id = $_POST['route_id'];
+$cost = (new Route)->getCost($route_id);
 
-if (isset($_POST['route_id'])) {
-    $route_id = $_POST['route_id'];
-    $cost = $route->getCost($route_id);
-
-    echo json_encode(['cost' => $cost]);
-}
+echo json_encode(['cost' => $cost]);
+exit();
