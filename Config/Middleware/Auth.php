@@ -2,12 +2,12 @@
 
 namespace Config\Middleware;
 
-class Auth {
-
+class Auth
+{
     public function handle()
     {
-        if( !$_SESSION['user_id'] ?? false) {
-            header('location: /');
+        if (!isset($_SESSION['user'])) {
+            header('location: /login');
             exit();
         }
     }
