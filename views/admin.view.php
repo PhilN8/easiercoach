@@ -34,7 +34,10 @@
                 <a href="javascript:void(0)" class="menu-item" onclick="openSection('users')">View Admins</a>
                 <a href="javascript:void(0)" class="menu-item" onclick="openSection('add')">Add Admin</a>
                 <a href="javascript:void(0)" class="menu-item" onclick="openSection('profile')">Edit Profile</a><br><br>
-                <a href="/logout" class="menu-item menu-item__last">Logout</a>
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="menu-item menu-item__last">Logout</button>
+                </form>
             </nav>
         </aside>
 
@@ -294,24 +297,24 @@
                     </div>
 
                     <!-- <form action="/routes/store" method="POST" id="newRouteForm"> -->
-                        <div class="routes__form">
-                            <h2 class="routes__form--title">Add Route</h2>
-                            <div class="routes__form--container">
-                                <div class="routes__form--box">
-                                    <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
-                                    <label for="departure" class="routes__form--label">Departure Point</label>
-                                </div>
-                                <div class="routes__form--box">
-                                    <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
-                                    <label for="destination" class="routes__form--label">Destination</label>
-                                </div>
-                                <div class="routes__form--box">
-                                    <input type="text" name="cost" id="cost" placeholder=" " class="routes__form--input">
-                                    <label for="cost" class="routes__form--label">Cost</label>
-                                </div>
+                    <div class="routes__form">
+                        <h2 class="routes__form--title">Add Route</h2>
+                        <div class="routes__form--container">
+                            <div class="routes__form--box">
+                                <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
+                                <label for="departure" class="routes__form--label">Departure Point</label>
                             </div>
-                            <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>
+                            <div class="routes__form--box">
+                                <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
+                                <label for="destination" class="routes__form--label">Destination</label>
+                            </div>
+                            <div class="routes__form--box">
+                                <input type="text" name="cost" id="cost" placeholder=" " class="routes__form--input">
+                                <label for="cost" class="routes__form--label">Cost</label>
+                            </div>
                         </div>
+                        <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>
+                    </div>
                     <!-- </form> -->
                 </div>
 

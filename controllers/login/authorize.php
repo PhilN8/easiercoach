@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 use Classes\User;
 
@@ -19,6 +18,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     $_SESSION['user'] = $user;
     $_SESSION['msg'] = "Login Successful";
+    session_regenerate_id(true);
+
     header('location:/admin');
     exit();
 }
