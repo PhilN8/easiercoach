@@ -8,7 +8,6 @@ use Classes\Ticket;
 
 class Purchase extends Model
 {
-
     public int $purchase_id;
     public string $departure_date;
     public array $seats = [];
@@ -75,7 +74,7 @@ class Purchase extends Model
                     VALUES(:fname, :lname, :id, :tel, :dep, :route_id, :seats, :total, :role)";
 
         $this->purchase_id = $this->db
-            ->upsert($purchase_sql, [
+            ->insertWithID($purchase_sql, [
                 ":fname" => $purchase_info['fname'],
                 ":lname" => $purchase_info['lname'],
                 ":id" => $purchase_info['id-no'],
@@ -85,7 +84,7 @@ class Purchase extends Model
                 ":seats" => count($purchase_info['seats']),
                 ":total" => $purchase_info['total_cost'],
                 ":role" => 3,
-            ], true);
+            ]);
 
         $this->departure_date = $purchase_info['dep-date'];
         $this->seats = $purchase_info['seats'];

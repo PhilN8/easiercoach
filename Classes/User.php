@@ -4,7 +4,6 @@ namespace Classes;
 
 class User extends Model
 {
-
     public const TABLE = 'tbl_users';
 
     public function __construct()
@@ -64,8 +63,3 @@ class User extends Model
             ->find()['total'] ?? 0;
     }
 }
-
-// $user = new User();
-
-// echo password_hash('hello', PASSWORD_DEFAULT);
-// dd($user->authenticate('p_nyaga', 'hello'));

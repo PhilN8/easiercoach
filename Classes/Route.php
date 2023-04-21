@@ -6,7 +6,6 @@ use Classes\Model;
 
 class Route extends Model
 {
-
     public const TABLE = 'tbl_routes';
 
     public function __construct()
@@ -31,11 +30,11 @@ class Route extends Model
                 VALUES(?, ?, ?)";
 
             return $this->db
-                ->upsert($new_route_sql, [
+                ->insertWithID($new_route_sql, [
                     $this->clean($departure),
                     $this->clean($destination),
                     $cost
-                ], true);
+                ]);
         } else {
             return FALSE;
         }

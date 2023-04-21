@@ -25,7 +25,6 @@ function abort($code = Response::NOT_FOUND)
     die();
 }
 
-
 function base_path($path)
 {
     return BASE_PATH . $path;
@@ -36,4 +35,10 @@ function view($path, $attributes = [])
     extract($attributes);
 
     require base_path('views/' . $path);
+}
+
+function redirect($path)
+{
+    header("location:{$path}");
+    exit();
 }

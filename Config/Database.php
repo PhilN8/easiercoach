@@ -61,23 +61,15 @@ class Database
         return $result === FALSE ? false : true;
     }
 
-    /**
-     * Function specifically for INSERT, UPDATE or DELETE queries.
-     * Checks the count of affected rows from the operation, or
-     * returns the insert ID.
-     * 
-     * @param string $query
-     * @param array $params = []
-     * @param bool $returnItem = false => This parameter specifies
-     * whether the insert ID or rowCount is returned. By default, the
-     * rowCount is returned.
-     * 
-     * @return int
-     * 
-     */
-    public function upsert($query, $params = [], bool $returnItem = false): int
+    public function upsert($query, $params = []): int
     {
         $this->query($query, $params);
-        return $returnItem ? $this->conn->lastInsertId() : $this->stmt->rowCount();
+        return $this->stmt->rowCount();
+    }
+
+    public function insertWithID($query, $params)
+    {
+        $this->query($query, $params);
+        return $this->conn->lastInsertId();
     }
 }
